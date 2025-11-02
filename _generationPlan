@@ -1,0 +1,123 @@
+{
+  "componentsToGenerate": [
+    "Navigation",
+    "Hero",
+    "FeaturedDishes",
+    "QuickStats",
+    "Testimonials",
+    "LocationPreview",
+    "MenuCategory",
+    "MenuItem",
+    "MenuFilters",
+    "ShoppingCart",
+    "CartItem",
+    "OrderCustomization",
+    "CheckoutForm",
+    "ReservationForm",
+    "DateTimePicker",
+    "AboutSection",
+    "ChefProfile",
+    "ContactForm",
+    "MapEmbed",
+    "HoursDisplay",
+    "SocialLinks",
+    "Footer",
+    "CTAButton",
+    "DietaryIcon"
+  ],
+  "estimatedChallenges": [
+    {
+      "component": "ShoppingCart",
+      "challenge": "State management across multiple pages, cart persistence",
+      "mitigation": "Use React Context API or Zustand for global state, localStorage for persistence. Ensure 'use client' directive is present."
+    },
+    {
+      "component": "MenuItem",
+      "challenge": "Dynamic rendering of menu items with images, handling missing data",
+      "mitigation": "Use proper TypeScript interfaces, fallback images, optional chaining for data access"
+    },
+    {
+      "component": "ReservationForm",
+      "challenge": "Date/time validation, availability checking, form state management",
+      "mitigation": "Use react-hook-form for validation, disable past dates, provide clear error messages"
+    },
+    {
+      "component": "OrderCustomization",
+      "challenge": "Complex nested options (size, toppings, modifications), price calculation",
+      "mitigation": "Create reusable option components, centralize price calculation logic"
+    },
+    {
+      "component": "Navigation",
+      "challenge": "Mobile menu toggle, active state management, cart count badge",
+      "mitigation": "Use state for mobile menu, usePathname for active links, context for cart count"
+    },
+    {
+      "component": "MapEmbed",
+      "challenge": "Google Maps API integration, loading states, fallback for API failures",
+      "mitigation": "Use iframe embed initially, add loading skeleton, provide static map fallback"
+    },
+    {
+      "component": "FeaturedDishes",
+      "challenge": "Image carousel/slider functionality, touch gestures for mobile",
+      "mitigation": "Use embla-carousel-react or similar library, ensure proper image optimization"
+    },
+    {
+      "component": "MenuFilters",
+      "challenge": "Multiple filter types (category, dietary, price), filter state management",
+      "mitigation": "Use URL search params for filter state, combine filters with AND logic"
+    }
+  ],
+  "fixerContext": {
+    "expectedStructure": "Next.js 14+ App Router structure with:\n- app/page.tsx (home)\n- app/menu/page.tsx\n- app/order/page.tsx\n- app/reservations/page.tsx\n- app/about/page.tsx\n- app/contact/page.tsx\n- components/ folder with all reusable components\n- lib/ folder for utilities and data\n- public/ folder for images",
+    "importPaths": "All component imports should use relative paths from their location. Components used in pages should be imported from '@/components/ComponentName'",
+    "commonIssues": [
+      "Missing 'use client' directive in interactive components (forms, cart, modals)",
+      "Image imports without proper Next.js Image component optimization",
+      "State management components not wrapped in client boundary",
+      "Import path mismatches between components and pages",
+      "Missing TypeScript interfaces for menu items, cart items, reservations",
+      "Form submissions without preventDefault",
+      "Map embeds without proper error handling",
+      "Missing alt text on food images",
+      "Cart state not persisting across page navigation",
+      "Date picker not handling timezone issues"
+    ],
+    "dataStructure": {
+      "menuItem": {
+        "id": "string",
+        "name": "string",
+        "description": "string",
+        "category": "appetizer|main|dessert|drink",
+        "price": "number",
+        "image": "string",
+        "dietary": "string[] (vegetarian, vegan, gluten-free, etc.)",
+        "allergens": "string[]",
+        "popular": "boolean",
+        "available": "boolean"
+      },
+      "cartItem": {
+        "menuItemId": "string",
+        "quantity": "number",
+        "customizations": "object",
+        "totalPrice": "number"
+      },
+      "reservation": {
+        "date": "string (ISO)",
+        "time": "string",
+        "partySize": "number",
+        "name": "string",
+        "email": "string",
+        "phone": "string",
+        "specialRequests": "string"
+      }
+    },
+    "stylingApproach": "Use Tailwind CSS for all styling. Create custom color palette in tailwind.config.js. Use responsive breakpoints (sm, md, lg, xl). Implement dark mode support for better UX.",
+    "performanceConsiderations": [
+      "Use Next.js Image component for all food photos",
+      "Implement lazy loading for menu items below fold",
+      "Code split cart and reservation components",
+      "Optimize bundle size by dynamic imports for heavy components",
+      "Use React.memo for menu item cards to prevent unnecessary re-renders"
+    ]
+  }
+}
